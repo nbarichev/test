@@ -32,11 +32,6 @@ spec:
       - env:
         - name: VCAP_APPLICATION
           value: '{}'
-        - name: VCAP_SERVICES
-          valueFrom:
-            secretKeyRef:
-              key: services
-              name: frontend-vcap-services
         image: {{ .Values.spec.app.image }}
         name: {{ .Values.spec.app.name }}
         ports:
