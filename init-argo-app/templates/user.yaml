@@ -15,6 +15,6 @@ spec:
     repoURL: "{{ .Values.spec.source.repoURL }}"
     targetRevision: "{{ .Values.spec.source.targetRevision }}"
     helm:
-      valueFiles: ["./apps/user.yaml"]
+      valueFiles: ["../../apps/user.yaml"]
   syncPolicy:
     automated: {}
