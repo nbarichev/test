@@ -2,4 +2,4 @@ spec:
   app:
     port: 8080
     name: frontend
-    image: crccheck/hello-world
+    image: nginx:1.21.6-alpine
