@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: frontend
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: "{{ .Values.spec.destination.server }}"
+  project: default
+  source:
+    path: ./argocd_apps/frontend
+    repoURL: "{{ .Values.spec.source.repoURL }}"
+    targetRevision: "{{ .Values.spec.source.targetRevision }}"
+    helm:
+      valueFiles: ["./apps/frontend.yaml"]
+  syncPolicy:
+    automated: {}
