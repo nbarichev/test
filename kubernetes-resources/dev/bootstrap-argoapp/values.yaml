@@ -1,4 +1,5 @@
 spec:
+  env: dev
   destination:
     server: https://kubernetes.default.svc
   source:
