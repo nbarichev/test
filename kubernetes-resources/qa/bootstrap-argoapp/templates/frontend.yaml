@@ -11,10 +11,10 @@ spec:
     server: "{{ .Values.spec.destination.server }}"
   project: default
   source:
-    path: ./helm/argo-rollout
+    path: ./kubernetes-resources/helm/argo-rollout
     repoURL: "{{ .Values.spec.source.repoURL }}"
     targetRevision: "{{ .Values.spec.source.targetRevision }}"
     helm:
-      valueFiles: ["../../apps/frontend.yaml"]
+      valueFiles: ["../../{{ .Values.spec.env }}/apps/frontend.yaml"]
   syncPolicy:
     automated: {}

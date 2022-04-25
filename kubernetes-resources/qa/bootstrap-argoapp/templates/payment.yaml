@@ -11,8 +11,10 @@ spec:
     server: "{{ .Values.spec.destination.server }}"
   project: default
   source:
-    path: ./argocd_apps/payment
+    path: ./kubernetes-resources/helm/argo-rollout
     repoURL: "{{ .Values.spec.source.repoURL }}"
     targetRevision: "{{ .Values.spec.source.targetRevision }}"
+    helm:
+      valueFiles: ["../../{{ .Values.spec.env }}/apps/payment.yaml"]
   syncPolicy:
     automated: {}
