@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Values.spec.app.name }}
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      name: {{ .Values.spec.app.name }}
+  strategy:
+    canary:
+      trafficRouting:
+        istio:
+          virtualService: 
+            name: {{ .Values.spec.app.name }}
+          destinationRule:
+            name: {{ .Values.spec.app.name }}
+            canarySubsetName: canary
+            stableSubsetName: stable
+      steps:
+      - setWeight: 5
+      - pause:
+          duration: 10m
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.spec.app.name }}
+        app: {{ .Values.spec.app.name }}
+    spec:
+      containers:
+      - env:
+        - name: VCAP_APPLICATION
+          value: '{}'
+        image: {{ .Values.spec.app.image }}
+        name: {{ .Values.spec.app.name }}
+        ports:
+        - containerPort: {{ .Values.spec.app.port }}
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 300m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+      imagePullSecrets:
+      - name: regcred
+

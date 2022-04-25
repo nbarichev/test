@@ -1,0 +1,5 @@
+spec:
+  app:
+    port: 8080
+    name: catalogue
+    image: nginx:1.21.6-alpine

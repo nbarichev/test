@@ -1,0 +1,5 @@
+spec:
+  app:
+    port: 8080
+    name: user
+    image: crccheck/hello-world
